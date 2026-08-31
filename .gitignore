@@ -1,2 +1,5 @@
 .playwright-mcp/
 .claude/settings.local.json
+.agents/
+.claude/skills/
+skills-lock.json
