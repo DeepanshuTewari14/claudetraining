@@ -13,12 +13,13 @@ There is no build, lint, or test tooling. To view the site, open `index.html` di
 ## Architecture
 
 Everything is inline in `index.html`:
-- All styles are in a single `<style>` block in `<head>`, using CSS custom properties (`:root`) for the color palette and layout tokens (primary blue `#00539B`, accent gold `#E8A33D`, 1120px max-width container).
-- All behavior is in a single `<script>` block at the end of `<body>`, split into three self-contained IIFEs with no shared global state between them:
+- All styles are in a single `<style>` block in `<head>`, using CSS custom properties (`:root`) for a bank-ledger/queue-ticket palette (ink navy `#0E2136`, brass `#C89550`/`#8F6420`, verdigris `#3F6B62`) and layout tokens (1120px max-width container). The "ticket stub" (perforated card) is the page's signature visual motif, used for the hero status card, the post-submission confirmation, and the WhatsApp widget panel.
+- All behavior is in a single `<script>` block at the end of `<body>`, split into four self-contained IIFEs with no shared global state between them:
   1. Nav/hamburger toggle for the mobile menu.
   2. Ticket form validation, submission, and the in-memory (non-persisted) `submittedTickets` array — no `localStorage`, `sessionStorage`, or network calls are used anywhere on the page.
-  3. FAQ accordion rendering (from an inline JS data array) and live search filtering.
-- The page is organized into four sections marked with `<!-- ===== ... ===== -->` HTML comments (Header/Nav/Hero, Ticket Form, FAQ, Footer); matching comments mark the corresponding CSS and JS blocks. Keep this comment convention when adding new sections so the single file stays navigable.
+  3. FAQ accordion rendering (from an inline JS data array, via DOM APIs rather than `innerHTML`) and live search filtering.
+  4. WhatsApp widget: floating action button toggling a suggested-queries panel (outbound `wa.me` links only — no JS-driven network calls).
+- The page is organized into five sections marked with `<!-- ===== ... ===== -->` HTML comments (Header/Nav/Hero, Ticket Form, FAQ, Footer, WhatsApp Widget); matching comments mark the corresponding CSS and JS blocks. Keep this comment convention when adding new sections so the single file stays navigable.
 
 ## Constraints to preserve
 

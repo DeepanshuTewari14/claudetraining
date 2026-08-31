@@ -663,6 +663,119 @@
     color:#8FA0B3;
   }
 
+  /* ===================== WHATSAPP WIDGET ===================== */
+  .wa-widget{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:200;
+  }
+  .wa-fab{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:var(--verdigris);
+    color:#fff;
+    border:0;
+    box-shadow:0 10px 24px rgba(14,33,54,0.28), 0 2px 6px rgba(14,33,54,0.2);
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .wa-fab:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(14,33,54,0.32), 0 3px 8px rgba(14,33,54,0.22);}
+  .wa-fab svg{width:28px;height:28px;}
+
+  .wa-panel{
+    position:absolute;
+    right:0;
+    bottom:74px;
+    width:300px;
+    max-width:calc(100vw - 40px);
+    background:var(--paper-2);
+    border-radius:4px;
+    box-shadow:0 24px 56px rgba(3,10,20,0.28), 0 2px 8px rgba(3,10,20,0.14);
+    padding:26px 22px 22px;
+  }
+  .wa-panel[hidden]{display:none;}
+  .wa-panel::before{
+    content:"";
+    position:absolute;
+    top:-6px; left:20px; right:20px; height:12px;
+    background-image:radial-gradient(circle 6px, rgba(14,33,54,0.14) 0 6px, transparent 6.3px);
+    background-size:24px 12px;
+    background-position:0 0;
+    background-repeat:repeat-x;
+  }
+  .wa-panel-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+  }
+  .wa-title{font-size:1.15rem;margin:0;}
+  .wa-close{
+    flex-shrink:0;
+    width:28px;height:28px;
+    display:flex;align-items:center;justify-content:center;
+    background:transparent;
+    border:0;
+    border-radius:50%;
+    color:var(--muted);
+    cursor:pointer;
+  }
+  .wa-close:hover{background:var(--paper);color:var(--ink);}
+  .wa-intro{
+    color:var(--muted);
+    font-size:0.88rem;
+    margin:10px 0 6px;
+  }
+  .wa-hours{
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+    color:var(--muted);
+    margin:0 0 18px;
+  }
+  .wa-suggestions{
+    list-style:none;
+    margin:0 0 18px;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .wa-chip{
+    display:block;
+    text-decoration:none;
+    font-size:0.87rem;
+    font-weight:600;
+    color:var(--ink-text);
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:10px 12px;
+    transition:border-color .12s ease, background-color .12s ease;
+  }
+  .wa-chip:hover{border-color:var(--verdigris);background:#fff;}
+  .wa-start{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    width:100%;
+    min-height:46px;
+    background:var(--verdigris);
+    color:#fff;
+    text-decoration:none;
+    border-radius:var(--radius);
+    font-weight:700;
+    font-size:0.86rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+  }
+  .wa-start:hover{background:#33544d;}
+
   /* ===================== PAGE-LOAD ENTRANCE (hero only, subtle, one-time) ===================== */
   .hero-copy > *,
   .stub{
@@ -706,6 +819,10 @@
     .faq-question{flex-wrap:wrap;}
     .faq-cat{width:auto;}
     .faq-answer.open{padding-left:4px;}
+    .wa-widget{right:16px;bottom:16px;}
+    .wa-fab{width:52px;height:52px;}
+    .wa-fab svg{width:25px;height:25px;}
+    .wa-panel{bottom:64px;width:calc(100vw - 32px);}
   }
 </style>
 </head>
@@ -969,6 +1086,47 @@
     &copy; 2026 UOB IT Service Desk (Training Demo). All rights reserved.
   </div>
 </footer>
+
+<!-- ===================== WHATSAPP WIDGET ===================== -->
+<div class="wa-widget">
+  <div class="wa-panel" id="waPanel" hidden>
+    <div class="wa-panel-head">
+      <div>
+        <span class="eyebrow">Message Us</span>
+        <h3 class="wa-title">Chat on WhatsApp</h3>
+      </div>
+      <button type="button" class="wa-close" id="waCloseBtn" aria-label="Close chat panel">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <p class="wa-intro">Message the Service Desk directly — pick a topic to start, or write your own.</p>
+    <p class="wa-hours">Mon–Fri, 8am–8pm SGT</p>
+    <ul class="wa-suggestions">
+      <li><a class="wa-chip" href="https://wa.me/6594477453?text=Hi%2C%20I%27d%20like%20help%20resetting%20my%20network%20password." target="_blank" rel="noopener noreferrer">Reset my network password</a></li>
+      <li><a class="wa-chip" href="https://wa.me/6594477453?text=Hi%2C%20I%27m%20having%20trouble%20connecting%20to%20the%20VPN." target="_blank" rel="noopener noreferrer">Help connecting to the VPN</a></li>
+      <li><a class="wa-chip" href="https://wa.me/6594477453?text=Hi%2C%20my%20laptop%20won%27t%20boot." target="_blank" rel="noopener noreferrer">My laptop won't boot</a></li>
+      <li><a class="wa-chip" href="https://wa.me/6594477453?text=Hi%2C%20I%27d%20like%20a%20status%20update%20on%20my%20ticket." target="_blank" rel="noopener noreferrer">Track an existing ticket</a></li>
+      <li><a class="wa-chip" href="https://wa.me/6594477453?text=Hi%2C%20I%20received%20a%20suspicious%20email%20and%20want%20to%20report%20it." target="_blank" rel="noopener noreferrer">Report a suspicious email</a></li>
+    </ul>
+    <a class="wa-start" id="waStartLink" href="https://wa.me/6594477453" target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.13A8.5 8.5 0 1 0 12 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M9 9.6c0-.6.5-1.1 1.1-1.1h.5c.3 0 .6.2.7.5l.6 1.4c.1.3.1.6-.1.8l-.5.6c-.1.2-.1.4 0 .6.4.8 1.4 1.8 2.2 2.2.2.1.4.1.6 0l.6-.5c.2-.2.5-.2.8-.1l1.4.6c.3.1.5.4.5.7v.5c0 .6-.5 1.1-1.1 1.1-3.6 0-6.9-3.3-6.9-6.9Z" fill="currentColor"/>
+      </svg>
+      Start a chat
+    </a>
+  </div>
+
+  <button type="button" class="wa-fab" id="waToggleBtn" aria-expanded="false" aria-controls="waPanel" aria-label="Chat with the IT Service Desk on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.13A8.5 8.5 0 1 0 12 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M9 9.6c0-.6.5-1.1 1.1-1.1h.5c.3 0 .6.2.7.5l.6 1.4c.1.3.1.6-.1.8l-.5.6c-.1.2-.1.4 0 .6.4.8 1.4 1.8 2.2 2.2.2.1.4.1.6 0l.6-.5c.2-.2.5-.2.8-.1l1.4.6c.3.1.5.4.5.7v.5c0 .6-.5 1.1-1.1 1.1-3.6 0-6.9-3.3-6.9-6.9Z" fill="currentColor"/>
+    </svg>
+  </button>
+</div>
 
 <script>
 /* ===================== NAVIGATION: HAMBURGER TOGGLE ===================== */
@@ -1326,6 +1484,49 @@
     });
 
     noResults.hidden = visibleCount !== 0;
+  });
+})();
+
+/* ===================== WHATSAPP WIDGET: TOGGLE ===================== */
+(function(){
+  const toggleBtn = document.getElementById('waToggleBtn');
+  const closeBtn = document.getElementById('waCloseBtn');
+  const panel = document.getElementById('waPanel');
+
+  function openPanel(){
+    panel.hidden = false;
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    closeBtn.focus();
+  }
+
+  function closePanel(returnFocus){
+    panel.hidden = true;
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    if (returnFocus) toggleBtn.focus();
+  }
+
+  toggleBtn.addEventListener('click', function(){
+    if (panel.hidden){
+      openPanel();
+    } else {
+      closePanel(true);
+    }
+  });
+
+  closeBtn.addEventListener('click', function(){
+    closePanel(true);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && !panel.hidden){
+      closePanel(true);
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    if (!panel.hidden && !panel.contains(e.target) && !toggleBtn.contains(e.target)){
+      closePanel(false);
+    }
   });
 })();
 </script>
